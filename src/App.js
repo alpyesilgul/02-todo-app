@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import NewTodo from "./components/NewTodo";
+import TodoList from "./components/TodoList";
+
+const INITIAL_TODO = [
+  { id: 1, text: "Learn React Basics", completed: true },
+  { id: 2, text: "Learn Redux", completed: false },
+  { id: 3, text: "Create a Real World React Project", completed: false },
+  { id: 4, text: "Create an SAP React Portal", completed: false },
+];
 
 function App() {
+  const [todos, setTodos] = useState(INITIAL_TODO);
+
+  const handleNewTodo = (todo) => {
+    const newTodoList = [...todos, todo];
+
+    setTodos(() => newTodoList);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NewTodo addTodo={handleNewTodo} />
+      <TodoList todos={todos} />
     </div>
   );
 }
